@@ -61,4 +61,7 @@ Cada estudiante en el grupo debe asumir un rol (decídanlo entre ustedes):
     algunas ideas en: http://eplex.cs.ucf.edu/noveltysearch/userspage/#intro . La propuesta que
     aparece aquí en O(N2), que es muy costosa. Le recomiendo alguna aproximación que sea
     O(N).
+    
+    
+$$ x_ {1,2} = \ frac {-b \ pm \ sqrt {b ^ 2-4ac}} {2b}. $$
 
