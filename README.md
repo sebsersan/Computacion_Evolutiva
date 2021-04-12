@@ -21,3 +21,44 @@ Los valores de A conviene generarlos al azar. Y luego crear también al azar un 
 último, calcular el vector B = As. De este modo nosotros conocemos la solución s, pero el algoritmo
 genético tiene que descubrirla.
 
+
+### ROLES
+Cada estudiante en el grupo debe asumir un rol (decídanlo entre ustedes):
+  
+  #### El ingeniero de pruebas (Miguel)
+  - El ingeniero de pruebas debe de codificar las pruebas de aceptación en un lenguaje llamado
+  “Gherkin” que es prácticamente igual que el español y que se usa con la herramienta cucumber.
+  Debe crear al menos 4 escenarios donde se verifique la mutación, el cruce uniforme, la
+  selección por torneo y un sistema de dos ecuaciones y dos incógnitas.
+  
+ 
+  #### El ingeniero de pruebas (David)
+  - El ingeniero desarrollador debe de escribir el código en Ruby correspondiente, y depurarlo
+  hasta que pase las pruebas de aceptación. Debe escribir al menos 4 clases: Gen, Cromosoma,
+  AlgoritmoGenetico y Fenotipo. En Fenotipo se debe implementar el problema, es decir, el
+  sistema de ecuaciones.
+
+  #### El usuario investigador (Sebastian)
+  -El usuario investigador debe coordinar el trabajo del ingeniero de pruebas y el ingeniero
+  desarrollador. Debe de comunicar a ambos lo que se requiere hacer, en lenguaje español (las
+  historias de usuario, que son los escenarios en cucumber) y negociar con ambos si toca hacer
+  cambios. Cuando todo esté funcionando, el usuario investigador ejecutará el programa con
+  diversos juegos de parámetros y hará un informe sobre lo que ve. Concretamente, debe haber
+  dos funciones objetivo:
+  
+    - MINIMIZAR EL ERROR CUADRÁTICO. Al aplicar cada cromosoma c a las ecuaciones
+    A, sale un resultado R=Ac, que no va a coincidir con el deseado B. La aptitud será el error
+    cuadrático cambiado de signo: 
+
+    aptitud = -\sum_{i=0}^{N-1}\left ( r_{i} - b_{i} \right )^{2}
+    
+    El objetivo es maximizar la
+    aptitud, es decir, minimizar el error cuadrático. Lo ideal es que llegue a 0.
+    
+    - DIVERSIDAD: esta es nueva (no vista en clase) y no usa la fórmula anterior. Lo único que
+    busca es maximizar la diversidad de los cromosomas. Hay muchas formas de hacerlo y les
+    recomiendo que no se compliquen mucho la vida en ello (consulte al profesor). Puede ver
+    algunas ideas en: http://eplex.cs.ucf.edu/noveltysearch/userspage/#intro . La propuesta que
+    aparece aquí en O(N2), que es muy costosa. Le recomiendo alguna aproximación que sea
+    O(N).
+
