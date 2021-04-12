@@ -50,7 +50,7 @@ Cada estudiante en el grupo debe asumir un rol (decídanlo entre ustedes):
     A, sale un resultado R=Ac, que no va a coincidir con el deseado B. La aptitud será el error
     cuadrático cambiado de signo: 
 
-    aptitud = -\sum*{i=0}\^{N-1}\left ( r*{i} - b\_{i} \right )\^{2}
+    aptitud = ![equation] -\sum*{i=0}\^{N-1}\left ( r*{i} - b\_{i} \right )\^{2}
     
     El objetivo es maximizar la
     aptitud, es decir, minimizar el error cuadrático. Lo ideal es que llegue a 0.
@@ -62,6 +62,4 @@ Cada estudiante en el grupo debe asumir un rol (decídanlo entre ustedes):
     aparece aquí en O(N2), que es muy costosa. Le recomiendo alguna aproximación que sea
     O(N).
     
-    
-$$ x_ {1,2} = \ frac {-b \ pm \ sqrt {b ^ 2-4ac}} {2b}. $$
 
