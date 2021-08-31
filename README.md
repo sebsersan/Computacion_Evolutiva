@@ -32,7 +32,7 @@ Cada estudiante en el grupo debe asumir un rol (decídanlo entre ustedes):
   selección por torneo y un sistema de dos ecuaciones y dos incógnitas.
   
  
-  #### El ingeniero de pruebas (David)
+  #### El ingeniero de desarrollo (David)
   - El ingeniero desarrollador debe de escribir el código en Ruby correspondiente, y depurarlo
   hasta que pase las pruebas de aceptación. Debe escribir al menos 4 clases: Gen, Cromosoma,
   AlgoritmoGenetico y Fenotipo. En Fenotipo se debe implementar el problema, es decir, el
