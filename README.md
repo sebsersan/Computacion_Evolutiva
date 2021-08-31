@@ -62,4 +62,21 @@ Cada estudiante en el grupo debe asumir un rol (decídanlo entre ustedes):
     aparece aquí en O(N2), que es muy costosa. Le recomiendo alguna aproximación que sea
     O(N).
     
+### PARÁMETROS
+  - [ ] N: el número de ecuaciones e incógnitas.
+  - [ ] Función objetivo empleada:
+  - [ ] Sólo MINIMIZAR EL ERROR CUADRÁTICO.
+  - [ ] Sólo DIVERSIDAD.
+  - [ ] Una combinación entre ellas (como usted la quiera hacer, pero tiene que explicarla).
+
+### RESULTADOS A MEDIR PARA CADA COMBINACIÓN DE PARÁMETROS
+  - [ ] Tiempo de ejecución hasta encontrar la solución.
+  - [ ] Calidad de la solución, esto es, cuanto vale el error cuadrático en el mejor cromosoma, para un tiempo fijo de ejecución (por ejemplo, 30 segundos).
+
+### ENTREGABLES
+Hay que hacer un corto documento.pdf con los resultados obtenidos en gráficas, y donde se explique el
+tipo de combinación entre MINIMIZAR EL ERROR CUADRÁTICO / DIVERSIDAD que se
+implementó. Y subirlo al campus junto con todos los archivos del programa (*.rb, *.features *.pdf) en
+único archivo comprimido (.tgz).
+Y hay que hacer una muy corta presentación en clase (5 minutos).
 
