@@ -39,7 +39,7 @@ Cada estudiante en el grupo debe asumir un rol (decídanlo entre ustedes):
   sistema de ecuaciones.
 
   #### El usuario investigador (Sebastian)
-  -El usuario investigador debe coordinar el trabajo del ingeniero de pruebas y el ingeniero
+  - El usuario investigador debe coordinar el trabajo del ingeniero de pruebas y el ingeniero
   desarrollador. Debe de comunicar a ambos lo que se requiere hacer, en lenguaje español (las
   historias de usuario, que son los escenarios en cucumber) y negociar con ambos si toca hacer
   cambios. Cuando todo esté funcionando, el usuario investigador ejecutará el programa con
