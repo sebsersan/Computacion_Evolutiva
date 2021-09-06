@@ -19,7 +19,7 @@
 - s = Vector generado al azar tamaño N
 
 - B = Multiplicación Matriz A por Vector s
-  B = As
+- B = As
 
 ---------
 
@@ -30,3 +30,5 @@
 - El algoritmo tendrá que averiguar la solución "c"
 
 - cuando c = s, el algoritmo halló la solución
+
+
