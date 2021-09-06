@@ -19,7 +19,7 @@
 - s = Vector generado al azar tamaño N
 
 - B = Multiplicación Matriz A por Vector s
-- B = As
+-- B = As
 
 ---------
 
