@@ -8,6 +8,10 @@
 
 - Ac = B
 
+En la imagen subida por el profesor estaba mal las dimensiones del vecto c, debe ser N x 1
+comos se ve reflejado en la imagen inferior con el vector x
+![alt text](assets/axb.png)
+
 ---------
 
 #### Variables:
