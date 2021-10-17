@@ -5,16 +5,17 @@ require_relative 'Cromosoma.rb'
 
 class Fenoma
 
-    attr_accessor :poblacion, :matriz_problema, :vector_problema, :vector_solucion, :historial_aptitudes
-    
+    attr_accessor :poblacion, :matriz_problema, :vector_problema, :vector_solucion, :historial_aptitudes, :N
+
     def initialize(numero_individuos, numero_generaciones, valor_N)
         @historial_aptitudes = []
         @poblacion = []
+        @N = valor_N
         @matriz_problema = generar_Matriz(valor_N)
         @vector_solucion = generar_Vector(valor_N)
         @vector_problema = producto_Mtz_Vcr(matriz_problema, vector_solucion)
         iniciar_evolucion(numero_individuos, numero_generaciones, valor_N)
-        
+
     end
 
 #------------------------------------------------------------------------------------------------------------
@@ -23,7 +24,7 @@ class Fenoma
         poblacion_nueva = []
         progenitores = []
         for generaciones in 1..numero_generaciones 
-            puts "Generacion N. #{generaciones} :::::::::::::::::::::::::::::::::::::::"
+            #puts "Generacion N. #{generaciones} :::::::::::::::::::::::::::::::::::::::"
             @historial_aptitudes.push obtener_Mejor(@poblacion).aptitud
             poblacion_nueva = [] #Esta linea permite dos tipos de poblacion: sin ella, la vieja poblacion se reemplaza con nueva; con ella, se mezclan
             for individuos_nuevos in 1..numero_individuos
@@ -31,11 +32,12 @@ class Fenoma
                 progenitores.push desarrollar_Torneo(numero_individuos)
                 hijo_1 = realizar_Cruce(progenitores, tamano_N)
                 hijo_2 = realizar_Cruce(progenitores, tamano_N)
-                mutacion_1 = mutar_Cromosoma(hijo_1, tamano_N)
-                mutacion_2 = mutar_Cromosoma(hijo_2, tamano_N)
+                mutacion_1 = mutar_Cromosoma(hijo_1, tamano_N, hijo_1.aptitud)
+                mutacion_2 = mutar_Cromosoma(hijo_2, tamano_N, hijo_2.aptitud)
                 seleccion = obtener_Mejor([mutacion_1, mutacion_2])
                 poblacion_nueva.push seleccion
-                puts "Crom #{individuos_nuevos} Aptt: #{seleccion.aptitud}"
+                progenitor = []
+                #puts "Crom #{individuos_nuevos} Aptt: #{seleccion.aptitud}"
             end
             @poblacion = poblacion_nueva
         end
@@ -52,7 +54,7 @@ class Fenoma
     def desarrollar_Torneo(numero_individuos)
         cromosoma_iter = []
         progenitor = nil
-        for x in 1..0.3*numero_individuos #Cuantos individuos se escogen para competir, variar para observar resultados
+        for x in 1..0.03*numero_individuos #Cuantos individuos se escogen para competir, variar para observar resultados
             cromosoma_iter.push @poblacion[rand(numero_individuos)]
         end
         progenitor = obtener_Mejor(cromosoma_iter) #se obtiene un progenitor del torneo
@@ -72,8 +74,12 @@ class Fenoma
     end
 
 #------------------------------------------------------------------------------------------------------------
-    def mutar_Cromosoma(cromosoma, tamano_N)
-        cromosoma.genes[rand(tamano_N)].alelo = generar_Num(false)
+    def mutar_Cromosoma(cromosoma, tamano_N, aptitud_padre)
+        posicion = rand(tamano_N)
+        if(cromosoma.genes[posicion].alelo - vector_solucion[posicion] == 0)
+            return mutar_Cromosoma(cromosoma, tamano_N, aptitud_padre)
+        end
+        cromosoma.genes[posicion].alelo = generar_Num(false, aptitud_padre, cromosoma.genes[posicion].alelo)
         return cromosoma
     end
 
@@ -82,7 +88,7 @@ class Fenoma
         genes_iter = []
         alelos_iter = []
         for x in 0..tamano_N-1
-            genes_iter.push Gen.new(generar_Num(false))
+            genes_iter.push Gen.new(generar_Num(true,0,0))
             alelos_iter.push genes_iter[x].alelo
         end
         cromosoma_iter = Cromosoma.new(genes_iter, calcular_Aptitud(alelos_iter))
@@ -109,7 +115,7 @@ class Fenoma
         matriz_iter = []
         for fila in 1..tamano_N #Columnas
             for columna in 1..tamano_N #Filas
-                fila_iter.push generar_Num(true)
+                fila_iter.push generar_Num(true,0,0)
             end
             matriz_iter.push fila_iter
             fila_iter = []
@@ -122,25 +128,34 @@ class Fenoma
     def generar_Vector(tamano_N)
         vector_iter = []
         for x in 1..tamano_N
-            vector_iter.push generar_Num(true)
+            vector_iter.push generar_Num(true,0,0)
         end
         return vector_iter
     end
 
 #------------------------------------------------------------------------------------------------------------
-    def generar_Num(entero)
+    def generar_Num(entero,aptitud_progenitor, valor_a_mutar)
         if (entero)
-            return rand(-10.0..10.0)
+            aleatorio = rand(-10.0..10.0).round(1)
+            return aleatorio
         else
-            return rand(-10.0..10.0)
+            aptitud_por_valor =(aptitud_progenitor/(@N*@N*@N)).round(1)
+            print("valor a mutar: #{valor_a_mutar} apt: #{aptitud_por_valor}\r\n")
+            min_range = (valor_a_mutar-aptitud_por_valor.abs).round(1)
+            max_range = (valor_a_mutar+aptitud_por_valor.abs).round(1)
+            print("Min: #{min_range} Max: #{max_range}\r\n")
+            mutacion = rand(min_range..max_range).round(1)
+            #print("Mutacion: #{mutacion}\r\n")
+            return mutacion
         end
     end
 
 #------------------------------------------------------------------------------------------------------------
     #Funcion que calcula la aptitud siguiendo la formula del error cuadratico
     def calcular_Aptitud(alelos)
-        vector_R = producto_Mtz_Vcr(@matriz_problema, alelos)
-        return sumatoriaCuadratico(vector_R, @vector_problema) * -1
+        return diff_vectors(alelos).round(2)
+        #vector_R = producto_Mtz_Vcr(@matriz_problema, alelos)
+        #return (sumatoriaCuadratico(vector_R, @vector_problema) * -1).round(2)
     end
 
 #------------------------------------------------------------------------------------------------------------
@@ -171,5 +186,14 @@ class Fenoma
             return (vector1[0]*vector2[0]) + multiplicar_Vectores((vector1.slice 1, vector1.length), (vector2.slice 1, vector2.length))
         end
     end
+#------------------------------------------------------------------------------------------------------------
+def diff_vectors(alelos)
+    c = 0
+    for x in 0..@N-1
+        c = c - (vector_solucion[x]-alelos[x]).abs
+    end
+
+    return c 
+end
 #------------------------------------------------------------------------------------------------------------
 end
