@@ -2,6 +2,7 @@
 require_relative 'Gen.rb'
 require_relative 'Cromosoma.rb'
 
+
 class Fenoma
 
     attr_accessor :poblacion, :matriz_problema, :vector_problema, :historial_aptitudes
@@ -19,12 +20,14 @@ class Fenoma
     def iniciar_evolucion(numero_individuos, numero_generaciones, tamano_N)
         generar_Poblacion_Inicial(numero_individuos, tamano_N)
         poblacion_nueva = []
-        for generaciones in 1..numero_generaciones #Variar este limite segun cuantas generaciones se desee hacer
+        progenitores = []
+        for generaciones in 1..numero_generaciones 
             puts "Generacion N. #{generaciones} :::::::::::::::::::::::::::::::::::::::"
             @historial_aptitudes.push obtener_Mejor(@poblacion).aptitud
             poblacion_nueva = [] #Esta linea permite dos tipos de poblacion: sin ella, la vieja poblacion se reemplaza con nueva; con ella, se mezclan
             for individuos_nuevos in 1..numero_individuos
-                progenitores = desarrollar_Torneo(numero_individuos)
+                progenitores.push desarrollar_Torneo(numero_individuos)
+                progenitores.push desarrollar_Torneo(numero_individuos)
                 hijo_1 = realizar_Cruce(progenitores, tamano_N)
                 hijo_2 = realizar_Cruce(progenitores, tamano_N)
                 mutacion_1 = mutar_Cromosoma(hijo_1, tamano_N)
@@ -47,18 +50,12 @@ class Fenoma
     #Aqui se lleva a cabo el proceso de SLECCION de cromosomas
     def desarrollar_Torneo(numero_individuos)
         cromosoma_iter = []
-        cromosoma_padre = nil
-        cromosoma_madre = nil
-        for x in 1..20 #variar para observar resultados
+        progenitor = nil
+        for x in 1..0.3*numero_individuos #Cuantos individuos se escogen para competir, variar para observar resultados
             cromosoma_iter.push @poblacion[rand(numero_individuos)]
         end
-        cromosoma_padre = obtener_Mejor(cromosoma_iter) #se obtiene un progenitor del primer torneo
-        cromosoma_iter = []
-        for x in 1..20 #variar para observar resultados
-            cromosoma_iter.push @poblacion[rand(numero_individuos)]
-        end
-        cromosoma_madre = obtener_Mejor(cromosoma_iter) #se obtiene el otro progenitor del segundo torneo
-        return [cromosoma_padre, cromosoma_madre]
+        progenitor = obtener_Mejor(cromosoma_iter) #se obtiene un progenitor del torneo
+        return progenitor
     end
 
 #------------------------------------------------------------------------------------------------------------
@@ -132,7 +129,7 @@ class Fenoma
 #------------------------------------------------------------------------------------------------------------
     def generar_Num(entero)
         if (entero)
-            return rand(10)
+            return rand(-10.0..10.0)
         else
             return rand(-10.0..10.0)
         end
@@ -151,7 +148,7 @@ class Fenoma
         if (vectorR.length==1)
             return (vectorR[0]-vectorB[0]) ** 2
         else
-            ((vectorR[0]-vectorB[0]) ** 2) + sumatoriaCuadratico((vectorR.slice 1, vectorR.length), (vectorB.slice 1, vectorB.length))
+            return ((vectorR[0]-vectorB[0]) ** 2) + sumatoriaCuadratico((vectorR.slice 1, vectorR.length), (vectorB.slice 1, vectorB.length))
         end
     end
 
@@ -170,7 +167,7 @@ class Fenoma
         if (vector1.length==1)
             return vector1[0] * vector2[0]
         else
-            (vector1[0]*vector2[0]) + multiplicar_Vectores((vector1.slice 1, vector1.length), (vector2.slice 1, vector2.length))
+            return (vector1[0]*vector2[0]) + multiplicar_Vectores((vector1.slice 1, vector1.length), (vector2.slice 1, vector2.length))
         end
     end
 #------------------------------------------------------------------------------------------------------------
