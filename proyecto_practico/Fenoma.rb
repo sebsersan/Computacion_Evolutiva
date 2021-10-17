@@ -185,12 +185,12 @@ class Fenoma
     end
 #------------------------------------------------------------------------------------------------------------
 def diff_vectors(alelos)
-    c = 0
+    aptitud = 0
     for x in 0..@N-1
-        c = c - (vector_solucion[x]-alelos[x]).abs
+        aptitud = aptitud - (vector_solucion[x]-alelos[x]).abs
     end
 
-    return c 
+    return aptitud 
 end
 #------------------------------------------------------------------------------------------------------------
 end
