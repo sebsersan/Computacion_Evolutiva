@@ -6,16 +6,17 @@ require_relative 'Fenoma.rb'
 
 
 individuos = 150
-generaciones = 25
+generaciones = 50
 tamanoMatriz = 6
 fenom = Fenoma.new(individuos, generaciones, tamanoMatriz) 
 puts fenom.poblacion.length
 
 
 for x in 1..generaciones
-    puts "En la Generacion #{x+1} el mejor fue: #{fenom.historial_aptitudes[x]}"
+    puts "En la Generacion #{x} el mejor fue: #{fenom.historial_aptitudes[x-1]}"
 end
 
+puts "El mejor cromosoma fue #{fenom.historial_aptitudes.max}"
 
 #puts fenom.matriz_problema
 #puts fenom.vector_problema
