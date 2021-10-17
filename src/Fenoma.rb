@@ -76,9 +76,6 @@ class Fenoma
 #------------------------------------------------------------------------------------------------------------
     def mutar_Cromosoma(cromosoma, tamano_N, aptitud_padre)
         posicion = rand(tamano_N)
-        if(cromosoma.genes[posicion].alelo - vector_solucion[posicion] == 0)
-            return mutar_Cromosoma(cromosoma, tamano_N, aptitud_padre)
-        end
         cromosoma.genes[posicion].alelo = generar_Num(false, aptitud_padre, cromosoma.genes[posicion].alelo)
         return cromosoma
     end
@@ -140,12 +137,12 @@ class Fenoma
             return aleatorio
         else
             aptitud_por_valor =(aptitud_progenitor/(@N*@N*@N)).round(1)
-            print("valor a mutar: #{valor_a_mutar} apt: #{aptitud_por_valor}\r\n")
+            # print("valor a mutar: #{valor_a_mutar} apt: #{aptitud_por_valor}\r\n")
             min_range = (valor_a_mutar-aptitud_por_valor.abs).round(1)
             max_range = (valor_a_mutar+aptitud_por_valor.abs).round(1)
-            print("Min: #{min_range} Max: #{max_range}\r\n")
+            # print("Min: #{min_range} Max: #{max_range}\r\n")
             mutacion = rand(min_range..max_range).round(1)
-            #print("Mutacion: #{mutacion}\r\n")
+            # print("Mutacion: #{mutacion}\r\n")
             return mutacion
         end
     end
@@ -153,7 +150,12 @@ class Fenoma
 #------------------------------------------------------------------------------------------------------------
     #Funcion que calcula la aptitud siguiendo la formula del error cuadratico
     def calcular_Aptitud(alelos)
-        return diff_vectors(alelos).round(2)
+        # return diff_vectors(alelos).round(2)
+        aptitud = 0
+        vector_solucion.each_with_index do | r, index |
+          aptitud+=(r-alelos[index])**2 
+        end
+        return -Math.sqrt(aptitud).round(2)
         #vector_R = producto_Mtz_Vcr(@matriz_problema, alelos)
         #return (sumatoriaCuadratico(vector_R, @vector_problema) * -1).round(2)
     end
@@ -188,12 +190,9 @@ class Fenoma
     end
 #------------------------------------------------------------------------------------------------------------
 def diff_vectors(alelos)
-    c = 0
-    for x in 0..@N-1
-        c = c - (vector_solucion[x]-alelos[x]).abs
-    end
-
-    return c 
+    aptitud = 0
+    alelos.each { |a| aptitud+=a**2 }
+    return -Math.sqrt(aptitud) 
 end
 #------------------------------------------------------------------------------------------------------------
 end

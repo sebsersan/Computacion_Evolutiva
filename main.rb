@@ -6,7 +6,7 @@ require_relative 'src/Fenoma.rb'
 
 
 individuos = 150
-generaciones = 50
+generaciones = 300
 tamanoMatriz = 6
 fenom = Fenoma.new(individuos, generaciones, tamanoMatriz) 
 puts fenom.poblacion.length
