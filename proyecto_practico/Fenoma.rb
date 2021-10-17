@@ -5,13 +5,14 @@ require_relative 'Cromosoma.rb'
 
 class Fenoma
 
-    attr_accessor :poblacion, :matriz_problema, :vector_problema, :historial_aptitudes
+    attr_accessor :poblacion, :matriz_problema, :vector_problema, :vector_solucion, :historial_aptitudes
     
     def initialize(numero_individuos, numero_generaciones, valor_N)
         @historial_aptitudes = []
         @poblacion = []
         @matriz_problema = generar_Matriz(valor_N)
-        @vector_problema = generar_Vector(valor_N)
+        @vector_solucion = generar_Vector(valor_N)
+        @vector_problema = producto_Mtz_Vcr(matriz_problema, vector_solucion)
         iniciar_evolucion(numero_individuos, numero_generaciones, valor_N)
         
     end
