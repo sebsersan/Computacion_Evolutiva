@@ -92,7 +92,7 @@ class Fenoma
 #------------------------------------------------------------------------------------------------------------
     def obtener_Mejor(cromosomas)
         mejor_cromosoma = cromosomas[0]
-        if (cromosomas.length>1)
+        if (cromosomas.length>=1)
             for x in 0..cromosomas.length-2
                 if (cromosomas[x+1].aptitud > mejor_cromosoma.aptitud)
                     mejor_cromosoma = cromosomas[x+1]
