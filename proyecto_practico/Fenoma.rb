@@ -76,9 +76,6 @@ class Fenoma
 #------------------------------------------------------------------------------------------------------------
     def mutar_Cromosoma(cromosoma, tamano_N, aptitud_padre)
         posicion = rand(tamano_N)
-        if(cromosoma.genes[posicion].alelo - vector_solucion[posicion] == 0)
-            return mutar_Cromosoma(cromosoma, tamano_N, aptitud_padre)
-        end
         cromosoma.genes[posicion].alelo = generar_Num(false, aptitud_padre, cromosoma.genes[posicion].alelo)
         return cromosoma
     end
