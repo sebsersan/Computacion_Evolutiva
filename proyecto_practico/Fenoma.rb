@@ -139,12 +139,12 @@ class Fenoma
             aleatorio = rand(-10.0..10.0).round(1)
             return aleatorio
         else
-            aptitud_por_valor =(aptitud_progenitor/(@N*@N*@N)).round(1)
-            print("valor a mutar: #{valor_a_mutar} apt: #{aptitud_por_valor}\r\n")
-            min_range = (valor_a_mutar-aptitud_por_valor.abs).round(1)
-            max_range = (valor_a_mutar+aptitud_por_valor.abs).round(1)
-            print("Min: #{min_range} Max: #{max_range}\r\n")
-            mutacion = rand(min_range..max_range).round(1)
+            aptitud_por_valor =(aptitud_progenitor/(@N*@N*@N)).round(2)
+
+            min_range = (valor_a_mutar-aptitud_por_valor.abs).round(2)
+            max_range = (valor_a_mutar+aptitud_por_valor.abs).round(2)
+
+            mutacion = rand(min_range..max_range).round(2)
             #print("Mutacion: #{mutacion}\r\n")
             return mutacion
         end
