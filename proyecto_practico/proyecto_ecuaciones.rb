@@ -5,9 +5,10 @@ require_relative 'Fenoma.rb'
 
 
 
-
+individuos = 150
 generaciones = 25
-fenom = Fenoma.new(150, generaciones, 6) #El primer parametro: N. individuos poblacion, El segundo: N. generaciones, El tercero: tamano N matriz
+tamanoMatriz = 6
+fenom = Fenoma.new(individuos, generaciones, tamanoMatriz) 
 puts fenom.poblacion.length
 
 
