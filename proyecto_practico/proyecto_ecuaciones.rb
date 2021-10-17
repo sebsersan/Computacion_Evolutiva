@@ -10,9 +10,6 @@ generaciones = 25
 fenom = Fenoma.new(150, generaciones, 6) #El primer parametro: N. individuos poblacion, El segundo: N. generaciones, El tercero: tamano N matriz
 puts fenom.poblacion.length
 
-for x in 0..5
-puts fenom.poblacion[55].genes[x].alelo
-end
 
 for x in 1..generaciones
     puts "En la Generacion #{x+1} el mejor fue: #{fenom.historial_aptitudes[x]}"
