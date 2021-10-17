@@ -1,0 +1,5 @@
+/log/*.log
+/tmp
+/vendor
+*Identifier
+Gemfile.lock
