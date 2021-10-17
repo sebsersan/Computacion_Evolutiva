@@ -28,7 +28,7 @@ class Fenoma
                 hijo_1 = realizar_Cruce(progenitores, tamano_N)
                 hijo_2 = realizar_Cruce(progenitores, tamano_N)
                 mutacion_1 = mutar_Cromosoma(hijo_1, tamano_N)
-                mutacion_2 = mutar_Cromosoma(hijo_1, tamano_N)
+                mutacion_2 = mutar_Cromosoma(hijo_2, tamano_N)
                 seleccion = obtener_Mejor([mutacion_1, mutacion_2])
                 poblacion_nueva.push seleccion
                 puts "Crom #{individuos_nuevos} Aptt: #{seleccion.aptitud}"
